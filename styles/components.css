@@ -103,10 +103,12 @@
   display: none;
 }
 
+.dark-theme .theme-icon-sun,
 [data-theme="dark"] .theme-icon-sun {
   display: none;
 }
 
+.dark-theme .theme-icon-moon,
 [data-theme="dark"] .theme-icon-moon {
   display: inline;
 }

@@ -39,29 +39,31 @@
   --motion-standard: cubic-bezier(0.2, 0, 0, 1);
 }
 
-/* Mode Nuit (Auto le soir de 19h à 7h ou manuel via le bouton) */
+/* Mode Nuit (Class .dark-theme appliquée sur body/html) */
+html.dark-theme,
+body.dark-theme,
 [data-theme="dark"] {
-  --bg-body: #0b0f19;
-  --bg-surface: #111827;
-  --bg-subtle: #1f2937;
+  --bg-body: #0b0f19 !important;
+  --bg-surface: #111827 !important;
+  --bg-subtle: #1f2937 !important;
   
-  --text-main: #f9fafb;
-  --text-muted: #cbd5e1;
-  --text-light: #94a3b8;
+  --text-main: #f9fafb !important;
+  --text-muted: #cbd5e1 !important;
+  --text-light: #94a3b8 !important;
   
-  --primary: #f59e0b;
-  --primary-hover: #d97706;
-  --primary-container: #78350f;
-  --on-primary-container: #fef3c7;
+  --primary: #f59e0b !important;
+  --primary-hover: #d97706 !important;
+  --primary-container: #78350f !important;
+  --on-primary-container: #fef3c7 !important;
   
-  --secondary: #334155;
-  --secondary-hover: #475569;
+  --secondary: #334155 !important;
+  --secondary-hover: #475569 !important;
   
-  --border: #1f2937;
-  --border-focus: #f59e0b;
+  --border: #374151 !important;
+  --border-focus: #f59e0b !important;
   
-  --elevation-1: 0px 2px 5px 0px rgba(0, 0, 0, 0.4);
-  --elevation-2: 0px 5px 12px 0px rgba(0, 0, 0, 0.5);
-  --elevation-3: 0px 15px 25px -4px rgba(0, 0, 0, 0.6);
-  --elevation-primary: 0px 8px 24px -4px rgba(245, 158, 11, 0.4);
+  --elevation-1: 0px 2px 5px 0px rgba(0, 0, 0, 0.4) !important;
+  --elevation-2: 0px 5px 12px 0px rgba(0, 0, 0, 0.5) !important;
+  --elevation-3: 0px 15px 25px -4px rgba(0, 0, 0, 0.6) !important;
+  --elevation-primary: 0px 8px 24px -4px rgba(245, 158, 11, 0.4) !important;
 }

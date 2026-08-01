@@ -5,22 +5,22 @@ export class ThemeManager {
   }
 
   init() {
-    // 1. Charger la préférence enregistrée ou déterminer selon l'heure (Nuit de 19h à 7h)
     const savedTheme = localStorage.getItem('lmrenov-theme');
     
     if (savedTheme) {
       this.setTheme(savedTheme);
     } else {
       const currentHour = new Date().getHours();
-      // Si entre 19h et 7h du matin = Mode Sombre (Dark), sinon Mode Jour (Light)
       const isNight = currentHour >= 19 || currentHour < 7;
       this.setTheme(isNight ? 'dark' : 'light');
     }
 
     this.toggleBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const isDark = document.body.classList.contains('dark-theme') || document.documentElement.getAttribute('data-theme') === 'dark';
+        const newTheme = isDark ? 'light' : 'dark';
         this.setTheme(newTheme);
         localStorage.setItem('lmrenov-theme', newTheme);
       });
@@ -30,8 +30,12 @@ export class ThemeManager {
   setTheme(theme) {
     if (theme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
+      document.documentElement.classList.add('dark-theme');
+      document.body.classList.add('dark-theme');
     } else {
       document.documentElement.removeAttribute('data-theme');
+      document.documentElement.classList.remove('dark-theme');
+      document.body.classList.remove('dark-theme');
     }
   }
 }
