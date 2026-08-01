@@ -1,6 +1,6 @@
 export class ThemeManager {
   constructor() {
-    this.toggleBtn = document.getElementById('theme-toggle');
+    this.toggleBtns = document.querySelectorAll('#theme-toggle, #theme-toggle-mobile');
     this.init();
   }
 
@@ -17,14 +17,14 @@ export class ThemeManager {
       this.setTheme(isNight ? 'dark' : 'light');
     }
 
-    if (this.toggleBtn) {
-      this.toggleBtn.addEventListener('click', () => {
+    this.toggleBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
         const currentTheme = document.documentElement.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         this.setTheme(newTheme);
         localStorage.setItem('lmrenov-theme', newTheme);
       });
-    }
+    });
   }
 
   setTheme(theme) {
