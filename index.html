@@ -19,6 +19,15 @@
     <!-- HTML5 QRCode Scanner Library pour compatibilité universelle mobile & desktop -->
     <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
     
+    <!-- EmailJS SDK pour l'envoi réel des emails de devis -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+      (function() {
+        // Initialisation EmailJS avec la clé publique (gratuite)
+        emailjs.init("YOUR_PUBLIC_KEY");
+      })();
+    </script>
+    
     <!-- CSS Modularisé -->
     <link rel="stylesheet" href="styles/main.css" />
   </head>
@@ -42,6 +51,10 @@
           <a href="#zone-intervention">Secteur (06/83)</a>
           <a href="#faq">FAQ</a>
           <a href="#contact">Contact</a>
+          <button id="theme-toggle" class="theme-toggle-btn" aria-label="Changer de thème jour/nuit" title="Basculez le thème jour/nuit">
+            <span class="theme-icon-sun">☀️</span>
+            <span class="theme-icon-moon">🌙</span>
+          </button>
         </div>
       </nav>
     </header>
@@ -358,7 +371,7 @@
               <h3>Un projet à discuter ?</h3>
               <p>Remplissez ce formulaire et nous revenons vers vous avec une proposition personnalisée.</p>
             </div>
-            <form class="contact-form" id="quote-form">
+            <form class="contact-form" id="quote-form" action="https://formspree.io/f/contact@lmrenov.fr" method="POST">
               <label>
                 Nom
                 <input type="text" name="name" placeholder="Votre nom" required />
@@ -368,8 +381,12 @@
                 <input type="email" name="email" placeholder="Votre email" required />
               </label>
               <label>
+                Téléphone
+                <input type="tel" name="phone" placeholder="Votre numéro de téléphone" required />
+              </label>
+              <label>
                 Projet
-                <textarea name="message" rows="4" placeholder="Décrivez votre besoin" required></textarea>
+                <textarea name="message" rows="4" placeholder="Décrivez votre besoin (type de rénovation, surface, ville...)" required></textarea>
               </label>
               <button class="btn btn-primary" type="submit">
                 <span>Envoyer mon message</span>

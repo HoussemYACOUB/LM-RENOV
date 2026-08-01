@@ -3,9 +3,11 @@ import { WebAnimations } from './animations.js';
 import { Testimonials } from './testimonials.js';
 import { ContactForm } from './contact.js';
 import { BarcodeScanner } from './scanner.js';
+import { ThemeManager } from './theme.js';
 
 class App {
   static init() {
+    new ThemeManager();
     new Navigation();
     new Testimonials();
     new ContactForm();
