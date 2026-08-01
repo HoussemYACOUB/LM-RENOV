@@ -1,22 +1,17 @@
 export class BarcodeScanner {
   constructor() {
-    this.video = document.getElementById('barcode-video');
     this.status = document.getElementById('scanner-status');
     this.startButton = document.getElementById('start-scan');
     this.stopButton = document.getElementById('stop-scan');
-    this.detector = null;
-    this.stream = null;
+    this.readerDiv = document.getElementById('barcode-video');
+    this.html5QrCode = null;
     this.active = false;
+    this.commercialUrl = 'https://houssemyacoub.github.io/LM-RENOV/';
     this.init();
   }
 
   init() {
-    if (!this.video || !this.status || !this.startButton || !this.stopButton) return;
-
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      this.status.textContent = "La caméra n'est pas prise en charge sur ce navigateur. Essayez Chrome ou Safari sur mobile.";
-      return;
-    }
+    if (!this.status || !this.startButton || !this.stopButton || !this.readerDiv) return;
 
     this.startButton.addEventListener('click', () => this.startBarcodeScanner());
     this.stopButton.addEventListener('click', () => this.stopBarcodeScanner());
@@ -26,87 +21,77 @@ export class BarcodeScanner {
     if (this.active) return;
 
     try {
-      this.status.textContent = 'Demande d’accès à la caméra...';
-      
-      const constraints = {
-        video: {
-          facingMode: { ideal: 'environment' },
-          width: { ideal: 1280 },
-          height: { ideal: 720 }
-        }
+      this.status.textContent = 'Initialisation de la caméra...';
+
+      if (typeof Html5Qrcode === 'undefined') {
+        this.status.textContent = 'Chargement de la bibliothèque de scan... veuillez réespayer dans un instant.';
+        return;
+      }
+
+      // Si le conteneur est un élément vidéo, remplacer dynamiquement par un div pour Html5Qrcode
+      if (this.readerDiv.tagName.toLowerCase() === 'video') {
+        const parent = this.readerDiv.parentNode;
+        const newDiv = document.createElement('div');
+        newDiv.id = 'barcode-video';
+        newDiv.style.width = '100%';
+        newDiv.style.borderRadius = '12px';
+        newDiv.style.overflow = 'hidden';
+        parent.replaceChild(newDiv, this.readerDiv);
+        this.readerDiv = newDiv;
+      }
+
+      this.html5QrCode = new Html5Qrcode('barcode-video');
+
+      const config = {
+        fps: 15,
+        qrbox: { width: 250, height: 250 },
+        aspectRatio: 1.0
       };
 
-      this.stream = await navigator.mediaDevices.getUserMedia(constraints);
-      this.video.srcObject = this.stream;
-      
-      // Assurer la lecture automatique sur iOS Safari (playsinline)
-      this.video.setAttribute('playsinline', 'true');
-      await this.video.play();
-      
+      // Tenter d'utiliser la caméra arrière ({ facingMode: "environment" })
+      await this.html5QrCode.start(
+        { facingMode: 'environment' },
+        config,
+        (decodedText, decodedResult) => {
+          this.handleScannedBarcode(decodedText);
+        },
+        (errorMessage) => {
+          // Erreur de scan continue (normale tant qu'aucun code n'est aligné)
+        }
+      );
+
       this.active = true;
-      this.status.textContent = 'Caméra activée ! Alignez le code-barres ou le QR Code dans le cadre.';
-      
-      this.scanLoop();
+      this.status.textContent = '📸 Caméra active ! Placez un QR Code ou un code-barres devant l’objectif.';
     } catch (error) {
-      console.error("Erreur caméra:", error);
-      if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {
-        this.status.textContent = 'Accès caméra refusé. Veuillez autoriser la caméra dans les réglages de votre navigateur.';
-      } else if (error.name === 'NotFoundError') {
-        this.status.textContent = 'Aucune caméra trouvée sur cet appareil.';
-      } else {
-        this.status.textContent = 'Erreur d’accès à la caméra. Assurez-vous d’utiliser un lien HTTPS sécurisé.';
-      }
+      console.error('Erreur démarrage scanner:', error);
+      this.status.textContent = '⚠️ Accès caméra refusé ou non disponible. Veuillez autoriser la caméra dans votre navigateur.';
     }
   }
 
-  stopBarcodeScanner() {
-    this.active = false;
-    if (this.stream) {
-      this.stream.getTracks().forEach((track) => track.stop());
-      this.stream = null;
-    }
-    if (this.video) {
-      this.video.srcObject = null;
-    }
-    this.status.textContent = 'Scanner arrêté. Cliquez sur démarrer pour relancer.';
-  }
+  async stopBarcodeScanner() {
+    if (!this.active || !this.html5QrCode) return;
 
-  async scanLoop() {
-    if (!this.active || !this.video) return;
-
-    if (this.video.readyState < 2) {
-      requestAnimationFrame(() => this.scanLoop());
-      return;
-    }
-
-    // Utilisation de BarcodeDetector native si supportée
-    if ('BarcodeDetector' in window) {
-      try {
-        if (!this.detector) {
-          this.detector = new BarcodeDetector({
-            formats: ['ean_13', 'code_128', 'qr_code', 'ean_8', 'upc_a', 'upc_e', 'data_matrix']
-          });
-        }
-        const barcodes = await this.detector.detect(this.video);
-        if (barcodes.length > 0) {
-          this.handleScannedBarcode(barcodes[0].rawValue);
-          return;
-        }
-      } catch (err) {
-        console.warn("Scan frame error:", err);
-      }
-    } else {
-      this.status.textContent = 'Caméra active. (Prise en charge de la détection automatique native sur Chrome/Edge/iOS 17+)';
-    }
-
-    if (this.active) {
-      setTimeout(() => requestAnimationFrame(() => this.scanLoop()), 250);
+    try {
+      await this.html5QrCode.stop();
+      this.active = false;
+      this.status.textContent = 'Scanner arrêté. Cliquez sur "Démarrer" pour relancer.';
+    } catch (error) {
+      console.error('Erreur arrêt scanner:', error);
     }
   }
 
   handleScannedBarcode(value) {
     this.stopBarcodeScanner();
     this.status.textContent = `✅ Code scanné avec succès : ${value}`;
-    alert(`Code-barres / QR Code détecté : ${value}`);
+
+    // Si le code scanné est une URL, redirection directe, sinon alerte informative
+    if (value.startsWith('http://') || value.startsWith('https://')) {
+      this.status.textContent = `Redirection vers : ${value}...`;
+      setTimeout(() => {
+        window.location.href = value;
+      }, 1200);
+    } else {
+      alert(`🎉 Code-barres / QR Code détecté :\n${value}`);
+    }
   }
 }
