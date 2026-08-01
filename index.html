@@ -4,18 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="LM Rénov : rénovation intérieure et extérieure, aménagement, finitions et devis gratuit pour vos projets de transformation." />
-    <meta name="theme-color" content="#d97706" />
+    <meta name="theme-color" content="#2563eb" />
     <meta property="og:title" content="LM Rénov | Rénovation professionnelle" />
     <meta property="og:description" content="Des espaces modernes, propres et durables, avec un accompagnement professionnel et un rendu soigné." />
     <meta property="og:type" content="website" />
     <link rel="canonical" href="https://votre-domaine.com/" />
     <title>LM Rénov | Rénovation professionnelle</title>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    
+    <!-- CSS Modularisé -->
+    <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
+    <!-- En-tête / Nav -->
     <header class="header">
       <nav class="nav container">
         <a href="#home" class="brand">
@@ -36,6 +41,7 @@
     </header>
 
     <main id="home">
+      <!-- Hero -->
       <section class="hero">
         <div class="container hero-grid">
           <div class="hero-content reveal">
@@ -50,7 +56,10 @@
               une organisation claire et des matériaux durables.
             </p>
             <div class="hero-actions">
-              <a class="btn btn-primary" href="#contact">Demander un devis</a>
+              <a class="btn btn-primary" href="#contact">
+                <span>Demander un devis</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+              </a>
               <a class="btn btn-secondary" href="#realisations">Voir nos réalisations</a>
             </div>
             <ul class="hero-highlights">
@@ -88,6 +97,7 @@
         </div>
       </section>
 
+      <!-- Services -->
       <section id="services" class="section">
         <div class="container">
           <div class="section-heading reveal">
@@ -114,6 +124,7 @@
         </div>
       </section>
 
+      <!-- À Propos -->
       <section id="about" class="section accent-section">
         <div class="container about-grid">
           <div class="reveal">
@@ -143,6 +154,7 @@
         </div>
       </section>
 
+      <!-- Réalisations -->
       <section id="realisations" class="section">
         <div class="container">
           <div class="section-heading reveal">
@@ -166,6 +178,7 @@
         </div>
       </section>
 
+      <!-- Galerie -->
       <section id="gallery" class="section alt-section">
         <div class="container">
           <div class="section-heading reveal">
@@ -194,6 +207,7 @@
         </div>
       </section>
 
+      <!-- Témoignages -->
       <section class="section alt-section">
         <div class="container testimonials">
           <div class="section-heading reveal">
@@ -213,6 +227,7 @@
         </div>
       </section>
 
+      <!-- Scanner -->
       <section id="scanner" class="section alt-section">
         <div class="container scanner-grid">
           <div class="section-heading reveal">
@@ -233,6 +248,7 @@
         </div>
       </section>
 
+      <!-- Contact -->
       <section id="contact" class="section">
         <div class="container contact-grid">
           <div class="reveal">
@@ -266,7 +282,10 @@
                 Projet
                 <textarea name="message" rows="4" placeholder="Décrivez votre besoin" required></textarea>
               </label>
-              <button class="btn btn-primary" type="submit">Envoyer</button>
+              <button class="btn btn-primary" type="submit">
+                <span>Envoyer mon message</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </button>
               <p id="form-status" class="form-status" aria-live="polite"></p>
             </form>
           </div>
@@ -274,6 +293,7 @@
       </section>
     </main>
 
+    <!-- Footer -->
     <footer class="footer">
       <div class="container footer-content">
         <p>© <span id="year"></span> LM Rénov. Tous droits réservés.</p>
@@ -281,6 +301,7 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Script Modulaire principal -->
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>
