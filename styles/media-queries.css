@@ -1,9 +1,18 @@
 @media (max-width: 992px) {
   .hero-grid,
   .about-grid,
-  .contact-grid {
+  .contact-grid,
+  .map-section-grid {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2rem;
+  }
+
+  .map-container-card {
+    min-height: 320px;
+  }
+
+  .map-container-card iframe {
+    min-height: 300px;
   }
 
   .cards-grid {
@@ -16,6 +25,19 @@
 }
 
 @media (max-width: 640px) {
+  .map-container-card {
+    min-height: 280px;
+    padding: 0.25rem;
+  }
+
+  .map-container-card iframe {
+    min-height: 260px;
+  }
+
+  .zone-info-card {
+    padding: 1.5rem;
+  }
+
   .menu-toggle {
     display: block;
   }
