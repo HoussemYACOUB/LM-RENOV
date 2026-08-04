@@ -103,14 +103,34 @@ button {
   margin-bottom: 0.75rem;
 }
 
-/* Animations au défilement */
+/* Animations au défilement (Scroll Animations) */
 .reveal {
-  opacity: 1;
-  transform: none;
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Effets de délai pour les grilles et cartes */
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+.reveal-delay-3 { transition-delay: 0.45s; }
+
+/* Effet d'impulsion subtile pour le logo d'arrière-plan */
+@keyframes floatWatermark {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -52%) scale(1.02);
+  }
+}
+
+body::before {
+  animation: floatWatermark 12s ease-in-out infinite;
 }
