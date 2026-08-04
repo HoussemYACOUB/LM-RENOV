@@ -24,9 +24,15 @@
 }
 
 .brand-logo {
-  width: 160px;
-  max-height: 52px;
+  width: auto;
+  height: 52px;
+  max-width: 220px;
   object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.brand-logo:hover {
+  transform: scale(1.03);
 }
 
 .nav-links {

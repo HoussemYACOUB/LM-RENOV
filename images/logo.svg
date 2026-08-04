@@ -1,13 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 140" width="100%" height="100%">
   <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#1f2a57" />
-      <stop offset="100%" stop-color="#d97706" />
+    <!-- Gradients & Filters -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFC107"/>
+      <stop offset="100%" stop-color="#E69500"/>
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF5722"/>
+      <stop offset="100%" stop-color="#E64A19"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#28266D"/>
+      <stop offset="100%" stop-color="#1A184D"/>
     </linearGradient>
   </defs>
-  <rect width="320" height="80" rx="18" fill="#fff" />
-  <path d="M24 64 L24 18 L62 18 L62 30 L40 30 L40 64 Z" fill="#1f2a57" />
-  <path d="M24 18 L40 18 L40 30 L24 30 Z" fill="#d97706" />
-  <text x="76" y="51" font-family="Inter, sans-serif" font-weight="800" font-size="42" fill="url(#grad)">RENOV</text>
-  <text x="76" y="70" font-family="Inter, sans-serif" font-weight="600" font-size="14" fill="#1f2a57">Peinture en bâtiment</text>
+
+  <!-- Groupe principal -->
+  <g transform="translate(10, 10)">
+    <!-- Cadre en L Doré/Jaune (Bordure gauche & bas) -->
+    <path d="M 12,10 L 26,10 L 26,92 L 205,92 L 205,106 L 12,106 Z" fill="url(#goldGrad)" />
+
+    <!-- Lettre M Bleue Nuit -->
+    <g transform="translate(32, 10)">
+      <!-- Corps de la lettre M -->
+      <path d="M 0,82 L 0,0 L 18,0 L 32,50 L 46,0 L 64,0 L 64,82 L 48,82 L 48,22 L 36,70 L 28,70 L 16,22 L 16,82 Z" fill="url(#blueGrad)" />
+      
+      <!-- Hachures / Rayures Orange dans le V du M -->
+      <polygon points="26,16 38,16 32,32" fill="#FF5722" />
+      <polygon points="22,26 42,26 32,42" fill="#FFC107" opacity="0.9" />
+    </g>
+
+    <!-- Texte RENOV (Orange Vif) -->
+    <text x="110" y="78" font-family="'Plus Jakarta Sans', 'Arial Black', sans-serif" font-weight="900" font-size="72" fill="url(#orangeGrad)" letter-spacing="1">RENOV</text>
+
+    <!-- Sous-titre "Peinture En Bâtiment" (Bleu Nuit) -->
+    <text x="212" y="102" font-family="'Plus Jakarta Sans', 'Segoe UI', sans-serif" font-weight="700" font-size="20" fill="#28266D" letter-spacing="-0.2">Peinture En Bâtiment</text>
+  </g>
 </svg>

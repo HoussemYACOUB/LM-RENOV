@@ -26,16 +26,23 @@ body::before {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 70vw;
-  max-width: 800px;
+  width: 75vw;
+  max-width: 850px;
   height: 70vh;
   background-image: url('../images/logo.svg');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
-  opacity: 0.035;
+  opacity: 0.045;
+  filter: drop-shadow(0 0 10px rgba(0,0,0,0.1));
   pointer-events: none;
   z-index: -1;
+}
+
+[data-theme="dark"] body::before,
+body.dark-theme::before {
+  opacity: 0.06;
+  filter: invert(1) hue-rotate(180deg) opacity(0.8);
 }
 
 img {
