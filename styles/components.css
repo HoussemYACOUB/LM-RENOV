@@ -155,6 +155,41 @@
   display: inline;
 }
 
+/* Bouton Flottant d'Appel Rapide (Mobile / Desktop) */
+.floating-call-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 999;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: #ffffff;
+  padding: 0.875rem 1.25rem;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  box-shadow: 0 8px 20px rgba(22, 163, 74, 0.4);
+  transition: transform 0.3s var(--motion-standard), box-shadow 0.3s ease;
+  animation: pulseFloatingBtn 3s infinite;
+}
+
+.floating-call-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(22, 163, 74, 0.5);
+  color: #ffffff;
+}
+
+@keyframes pulseFloatingBtn {
+  0%, 100% {
+    box-shadow: 0 8px 20px rgba(22, 163, 74, 0.4);
+  }
+  50% {
+    box-shadow: 0 8px 30px rgba(22, 163, 74, 0.7);
+  }
+}
+
 /* Boutons - Material Design 3 Inspired */
 .btn {
   display: inline-flex;
